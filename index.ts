@@ -5,10 +5,10 @@ import { expand, take } from 'rxjs/operators';
 // Example 1: Add one for each invocation
 
 //emit 2
-const source = of(2);
-const example = source.pipe(
+const src$ = of(2);
+const example = src$.pipe(
   //recursively call supplied function
-  expand(val => {
+  expand((val) => {
     //2,3,4,5,6
     console.log(`Passed value: ${val}`);
     //3,4,5,6
@@ -17,17 +17,12 @@ const example = source.pipe(
   //call 5 times
   take(5)
 );
+const subscribe = example.subscribe((val) => console.log(`RESULT: ${val}`));
 /*
 	"RESULT: 2"
 	"Passed value: 2"
 	"RESULT: 3"
 	"Passed value: 3"
 	"RESULT: 4"
-	"Passed value: 4"
-	"RESULT: 5"
-	"Passed value: 5"
-	"RESULT: 6"
-	"Passed value: 6"
 */
 //output: 2,3,4,5,6
-const subscribe = example.subscribe(val => console.log(`RESULT: ${val}`));
